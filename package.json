@@ -1,15 +1,19 @@
 {
-  "name": "npkg-init",
+  "name": "nodeos-init",
   "version": "0.0.0",
-  "description": "job queue that can be run as part of init",
+  "description": "job queue and init service",
   "main": "index.js",
   "scripts": {
     "test": "tap test"
   },
+  "bin": {
+    "initctl": "initctl.js"
+  },
   "author": "Jacob Groundwater <groundwater@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "tap": "^0.4.8"
+    "tap": "^0.4.8",
+    "lib-cmdparse": "^0.1.0"
   },
   "dependencies": {
     "lib-http-rpc": "^0.0.1",
