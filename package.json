@@ -4,7 +4,8 @@
   "description": "job queue and init service",
   "main": "index.js",
   "scripts": {
-    "test": "tap test"
+    "test": "tap test",
+    "start": "node server.js"
   },
   "bin": {
     "initctl": "initctl.js"
