@@ -14,7 +14,7 @@ module.exports = {
   waitJob: {
     method: 'GET',
     route: '/job/:name/wait'
-  }.
+  },
 
   // queue a new job
   // or add tasks to an existing job

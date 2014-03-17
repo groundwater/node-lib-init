@@ -5,7 +5,6 @@ var Http = require('http');
 var RPC  = require('lib-http-rpc');
 var argv = require('minimist')(process.argv.slice(2));
 
-var Init = require('./index.js')();
 var api  = require('./api.js');
 
 var Client = require('./client.js');
@@ -17,7 +16,9 @@ var cmd = argv._.shift();
 var run = cli[cmd];
 
 if (run) {
-  run.call(cli, argv);
+  run.call(cli, argv, function () {
+    console.log('DONE');
+  });
 } else {
   console.log("Unknown Command", cmd);
 }
