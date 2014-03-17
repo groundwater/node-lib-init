@@ -1,6 +1,6 @@
 var test   = require('tap').test;
 var assert = require('assert');
-var Init   = require('../server.js')();
+var Init   = require('../init.js')();
 var init   = Init.New();
 
 var job = {
