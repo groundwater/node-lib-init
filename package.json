@@ -18,6 +18,18 @@
   },
   "dependencies": {
     "lib-http-rpc": "^0.0.1",
+    "lib-job-queue": "0.0.5",
     "minimist": "0.0.8"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/groundwater/node-lib-init.git"
+  },
+  "bugs": {
+    "url": "https://github.com/groundwater/node-lib-init/issues"
+  },
+  "homepage": "https://github.com/groundwater/node-lib-init"
 }
