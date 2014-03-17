@@ -38,6 +38,10 @@ Init.prototype.queueJob = function (opts, body, done) {
   var name = opts.name;
   var job  = getOrMakeJob(this, name);
 
+  assert(name, 'must specify name');
+  assert(body, 'must specify body');
+  assert(body.tasks, 'must specify list of tasks');
+
   body.tasks.forEach(function (task) {
     job.queue(task);
   });
