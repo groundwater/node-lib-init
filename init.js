@@ -66,6 +66,16 @@ Init.prototype.waitJob = function (opts, body, done) {
   else done();
 };
 
+Init.prototype.clearJob = function (opts, body, done) {
+  assert(opts.name, 'must specify name');
+
+  var name = opts.name;
+
+  delete this.jobs[name];
+
+  done();
+};
+
 Init.prototype.stopJob = function (opts, body, done) {
   var name = opts.name;
   var job  = this.jobs[name];
