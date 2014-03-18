@@ -70,9 +70,12 @@ Init.prototype.clearJob = function (opts, body, done) {
   assert(opts.name, 'must specify name');
 
   var name = opts.name;
+  var job  = this.jobs[name];
+
+  if (job.current)
+    return done(new Error('Cannot clear running job'));
 
   delete this.jobs[name];
-
   done();
 };
 
