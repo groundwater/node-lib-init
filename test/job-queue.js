@@ -16,24 +16,27 @@ test('basic job queue', function (t) {
 
   // queue a job
   init.queueJob({name: 'test'}, job, function (err, res) {
-    t.ifError(err);
+    t.ifError(err, 'queue should work');
     init.waitJob({name: 'test'}, null, function (err) {
-      t.ifError(err);
+      t.ifError(err, 'wait on job works');
     });
   });
 
 });
 
-test('double queue a job', function (t) {
-  t.plan(2);
+test('when double queueing', function (t) {
+  t.plan(3);
 
   // double add
   init.queueJob({name: 'test'}, job, function (err, res) {
-    t.ifError(err);
+    t.ifError(err, 'first queue should work');
   });
 
   init.queueJob({name: 'test'}, job, function (err, res) {
-    t.ifError(err);
+    t.ifError(err, 'second queue should work');
   });
 
+  init.waitJob({name: 'test'}, null, function (err, res) {
+    t.ifError(err, 'wait should only happen once');
+  })
 });

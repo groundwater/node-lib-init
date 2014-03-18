@@ -64,7 +64,7 @@ Init.prototype.waitJob = function (opts, body, done) {
 
   if (job) job.emitter.on('end', done);
   else done();
-}
+};
 
 Init.prototype.stopJob = function (opts, body, done) {
   var name = opts.name;
