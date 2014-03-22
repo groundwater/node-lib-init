@@ -29,6 +29,14 @@ module.exports = {
     route: '/job/:name'
   },
 
+  streamJob: {
+    method: 'GET',
+    route: '/job/:name/stream',
+    options: {
+      'fd': 'stdout+stderr'
+    }
+  },
+
   // stop a job
   // kill the current task,
   // and drop all extra tasks
@@ -55,4 +63,4 @@ module.exports = {
     route: '/job/:name/task/:id/sig/:signal'
   }
 
-}
+};

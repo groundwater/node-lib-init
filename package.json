@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "tap test",
-    "start": "node server.js"
+    "start": "node server.js -- bash"
   },
   "bin": {
     "initctl": "initctl.js"
