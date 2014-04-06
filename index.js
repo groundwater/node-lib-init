@@ -23,35 +23,6 @@ function Init() {
   this.jobs = {};
 }
 
-function createJob(init, name) {
-  var queue  = init.$.Queue.New();
-
-  var stdout = init.$.Stream();
-  var stderr = init.$.Stream();
-
-  // each tasks stdio is piped to an aggregate stream
-  queue.emitter.on('task', function (proc) {
-    stdout.addReadable(proc.stdout);
-    stderr.addReadable(proc.stderr);
-  });
-
-  // when the queue is *done* done, end the aggregate stream
-
-  var job = new Job();
-
-  job.queue  = queue;
-  job.stdout = stdout;
-  job.stderr = stderr;
-
-  queue.emitter.on('exit', function () {
-    // emit an event when there are no jobs on the queue
-    job.tasks.shift();
-    if (job.tasks.length === 0) job.emit('empty');
-  });
-
-  return job;
-}
-
 Init.prototype.listJobs = function () {
   return Object.keys(this.jobs);
 };
@@ -76,7 +47,7 @@ Init.prototype.queueJob = function (name, body) {
   assert(body, 'Job Requires Description');
 
   var types = this.$.types;
-  var job   = this.jobs[name] || createJob(this, name);
+  var job   = this.jobs[name] || this.$.createJob(this, name);
 
   body = types.job.marshal(body);
 
@@ -107,6 +78,40 @@ Init.New = function () {
 };
 
 /*
+  Private Functions
+*/
+
+function createJob(init, name) {
+  var queue  = init.$.Queue.New();
+
+  var stdout = init.$.Stream();
+  var stderr = init.$.Stream();
+
+  // each tasks stdio is piped to an aggregate stream
+  queue.emitter.on('task', function (proc) {
+    stdout.addReadable(proc.stdout);
+    stderr.addReadable(proc.stderr);
+  });
+
+  // when the queue is *done* done, end the aggregate stream
+
+  var job = new Job();
+
+  job.queue  = queue;
+  job.stdout = stdout;
+  job.stderr = stderr;
+
+  queue.emitter.on('exit', function () {
+    // emit an event when there are no jobs on the queue
+    job.tasks.shift();
+    if (job.tasks.length === 0) job.emit('empty');
+  });
+
+  return job;
+}
+
+
+/*
 
   Injectors
 
@@ -126,6 +131,9 @@ function defaults() {
     },
     Stream: {
       value: require('lib-stream-series')
+    },
+    createJob: {
+      value: createJob
     }
   };
 }
