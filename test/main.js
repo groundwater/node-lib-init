@@ -10,7 +10,7 @@ var init = Init.New();
 test("happy path test", function (t) {
   t.plan(3);
 
-  var job = init.queueJob('a', {
+  var job = init.queue('a', {
     tasks: [
       {exec: process.argv[0], args: ['-e', 'process.stdout.write("one");'], envs: process.env, cwd: process.cwd()},
       {exec: process.argv[0], args: ['-e', 'process.stdout.write("two");'], envs: process.env, cwd: process.cwd()},

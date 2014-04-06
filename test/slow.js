@@ -8,12 +8,12 @@ var Init = require('../index.js')()
 
 test("one slow", function (t) {
   var init = Init.New();
-  var job = init.queueJob('a', {
+  var job = init.queue('a', {
     tasks: []
   });
 
   setTimeout(function () {
-    init.queueJob('a', {
+    init.queue('a', {
       tasks: [
         {exec: process.argv[0], args: ['-e', 'process.stdout.write("one");'], envs: process.env, cwd: process.cwd()},
       ]
@@ -32,12 +32,12 @@ test("one slow", function (t) {
 
 test("two slow", function (t) {
   var init = Init.New();
-  var job = init.queueJob('a', {
+  var job = init.queue('a', {
     tasks: []
   });
 
   setTimeout(function () {
-    init.queueJob('a', {
+    init.queue('a', {
       tasks: [
         {exec: process.argv[0], args: ['-e', 'process.stdout.write("one");'], envs: process.env, cwd: process.cwd()},
       ]
@@ -45,7 +45,7 @@ test("two slow", function (t) {
   }, 100)
 
   setTimeout(function () {
-    init.queueJob('a', {
+    init.queue('a', {
       tasks: [
         {exec: process.argv[0], args: ['-e', 'process.stdout.write("two");'], envs: process.env, cwd: process.cwd()},
       ]

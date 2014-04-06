@@ -20,7 +20,7 @@ The `stdout/stderr` of each child is wired together in
 var Init = require('lib-init')();
 var init = Init.New();
 
-var job  = init.queueJob('myTask', {
+var job  = init.queue('myTask', {
   tasks: [task0, task1, task2]
 })
 
@@ -33,7 +33,7 @@ job.stdout.pipe(process.stdout);
 var Init = require('lib-init')();
 var init = Init.New();
 
-init.queueJob('myTask', {
+init.queue('myTask', {
   tasks: [task0, task1, task2]
 });
 

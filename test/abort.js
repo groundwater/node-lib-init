@@ -9,7 +9,7 @@ var Init = require('../index.js')()
 test("one slow", function (t) {
   var init = Init.New();
 
-  var job = init.queueJob('a', {
+  var job = init.queue('a', {
     tasks: [
       {exec: process.argv[0], args: ['-e', 'process.stdout.write("one");'], envs: process.env, cwd: process.cwd()},
     ]
@@ -18,7 +18,7 @@ test("one slow", function (t) {
   init.abortJob('a');
 
   t.throws(function () {
-    init.queueJob('a', {
+    init.queue('a', {
       tasks: [
         {exec: process.argv[0], args: ['-e', 'process.stdout.write("one");'], envs: process.env, cwd: process.cwd()},
       ]

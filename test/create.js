@@ -11,7 +11,7 @@ test("create a job requires name", function (t) {
   var init = Init.New();
 
   t.throws(function(){
-    var job = init.queueJob();
+    var job = init.queue();
   }, new assert.AssertionError({message: 'Job Requires Name'}));
 
   t.end();
@@ -21,7 +21,7 @@ test("create a job requires job object", function (t) {
   var init = Init.New();
 
   t.throws(function(){
-    var job = init.queueJob('a');
+    var job = init.queue('a');
   }, new assert.AssertionError({message: 'Job Requires Description'}));
 
   t.end();
@@ -31,7 +31,7 @@ test("job emits empty event", function (t) {
   t.plan(1);
   var init = Init.New();
 
-  var job = init.queueJob('a', {
+  var job = init.queue('a', {
     tasks: [
       {exec: process.argv[0], args: ['-v'], envs: process.env, cwd: process.cwd()}
     ]
@@ -48,7 +48,7 @@ test("job emits empty event *only* after queue empties", function (t) {
   t.plan(3);
   var init = Init.New();
 
-  var job = init.queueJob('a', {
+  var job = init.queue('a', {
     tasks: [
       {exec: process.argv[0], args: ['-v'], envs: process.env, cwd: process.cwd()},
       {exec: process.argv[0], args: ['-v'], envs: process.env, cwd: process.cwd()},
@@ -73,7 +73,7 @@ test("queue after empty", function (t) {
   var job;
 
   function queue() {
-    job = init.queueJob('a', {
+    job = init.queue('a', {
       tasks: [
         {exec: process.argv[0], args: ['-v'], envs: process.env, cwd: process.cwd()},
       ]

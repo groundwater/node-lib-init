@@ -23,17 +23,17 @@ function Init() {
   this.jobs = {};
 }
 
-Init.prototype.listJobs = function () {
+Init.prototype.list = function () {
   return Object.keys(this.jobs);
 };
 
-Init.prototype.getJob = function (name) {
+Init.prototype.get = function (name) {
   if (!name) throw new Error('Job Must Have Name');
 
   return this.jobs[name];
 };
 
-Init.prototype.clearJob = function (name) {
+Init.prototype.clear = function (name) {
   var job = this.jobs[name];
 
   if (!job)              throw new Error('Job Not Found');
@@ -42,7 +42,7 @@ Init.prototype.clearJob = function (name) {
   delete this.jobs[name];
 };
 
-Init.prototype.queueJob = function (name, body) {
+Init.prototype.queue = function (name, body) {
   assert(name, 'Job Requires Name');
   assert(body, 'Job Requires Description');
 
