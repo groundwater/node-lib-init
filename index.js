@@ -19,10 +19,13 @@ function createJob(init, name) {
   var stdout = init.$.Stream();
   var stderr = init.$.Stream();
 
+  // each tasks stdio is piped to an aggregate stream
   queue.emitter.on('task', function (proc) {
     stdout.addReadable(proc.stdout);
-    // stderr.addReadable(proc.stderr);
+    stderr.addReadable(proc.stderr);
   });
+
+  // when the queue is *done* done, end the aggregate stream
 
   var job = new Job();
 
@@ -53,8 +56,11 @@ Init.prototype.queueJob = function (name, body) {
 Init.prototype.abortJob = function (name) {
   // assert(name, 'require name');
   // if (!this.jobs[name]) throw New Error('Job does not exist');
+  var job = this.jobs[name];
 
-  this.jobs[name].abort();
+  job.queue.abort();
+  job.stdout.done();
+  job.stderr.done();
 };
 
 Init.New = function () {

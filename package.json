@@ -14,17 +14,14 @@
   "license": "MIT",
   "devDependencies": {
     "tap": "^0.4.8",
-    "lib-cmdparse": "^0.1.0"
+    "lib-cmdparse": "^0.1.0",
+    "lib-stream-solidify": "0.0.1",
+    "lib-stream-liquify": "0.0.1"
   },
   "dependencies": {
-    "lib-http-rpc": "^0.0.1",
-    "lib-job-queue": "^0.1.2",
-    "minimist": "0.0.8",
-    "lib-stream-solidify": "0.0.1",
-    "lib-stream-liquify": "0.0.1",
-    "lib-stream-future": "0.0.3",
+    "lib-job-queue": "^0.1.3",
     "lib-proto-job": "0.0.0",
-    "lib-stream-series": "0.0.2"
+    "lib-stream-series": "^0.1.0"
   },
   "directories": {
     "test": "test"
