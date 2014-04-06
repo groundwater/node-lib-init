@@ -36,6 +36,15 @@ function createJob(init, name) {
   return job;
 }
 
+Init.prototype.clearJob = function (name) {
+  var job = this.jobs[name];
+
+  if (!job)              throw new Error('Job Not Found');
+  if (job.queue.running) throw new Error('Cannot Clear a Running Job');
+
+  delete this.jobs[name];
+};
+
 Init.prototype.queueJob = function (name, body) {
   // assert(name, 'require name of job');
   // assert(body, 'require body containing job description');

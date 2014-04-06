@@ -1,5 +1,5 @@
 {
-  "name": "nodeos-init",
+  "name": "lib-job",
   "version": "0.0.0",
   "description": "job queue and init service",
   "main": "index.js",
