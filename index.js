@@ -52,6 +52,16 @@ function createJob(init, name) {
   return job;
 }
 
+Init.prototype.listJobs = function () {
+  return Object.keys(this.jobs);
+};
+
+Init.prototype.getJob = function (name) {
+  if (!name) throw new Error('Job Must Have Name');
+
+  return this.jobs[name];
+};
+
 Init.prototype.clearJob = function (name) {
   var job = this.jobs[name];
 
