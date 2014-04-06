@@ -44,6 +44,8 @@ Init.prototype.queueJob = function (name, body) {
   var job   = this.jobs[name] || createJob(this, name);
   var body  = types.job.marshal(body);
 
+  if (!job.queue.running) throw new Error('Job Aborted');
+
   body.tasks.forEach(function (task) {
     job.queue.queue(task);
   });
