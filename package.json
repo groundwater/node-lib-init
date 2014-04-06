@@ -1,11 +1,10 @@
 {
-  "name": "lib-job",
+  "name": "lib-init",
   "version": "0.0.0",
   "description": "job queue and init service",
   "main": "index.js",
   "scripts": {
-    "test": "tap test",
-    "start": "node server.js -- bash"
+    "test": "jshint index.js && tap test"
   },
   "bin": {
     "initctl": "initctl.js"

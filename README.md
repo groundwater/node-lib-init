@@ -1,12 +1,41 @@
 # init lib
 
-[![Build Status](https://travis-ci.org/groundwater/node-lib-init.png?branch=master)](https://travis-ci.org/groundwater/node-lib-init)
+> job init server
 
-**WARNING**
-This is a major work in progress.
-It is mostly about experimenting,
-and will likely change a lot.
+## install
 
-## names
+```bash
+npm install --save lib-init
+```
 
-- minitd @juliangiuca
+## usage
+
+### queue a series of tasks
+
+Spawn a series of tasks executed sequentially.
+The `stdout/stderr` of each child is wired together in
+`job.stdout` and `job.stderr` respectively.
+
+```javascript
+var Init = require('lib-init')();
+var init = Init.New();
+
+var job  = init.queueJob('myTask', {
+  tasks: [task0, task1, task2]
+})
+
+job.stdout.pipe(process.stdout);
+```
+
+### abort a job
+
+```javascript
+var Init = require('lib-init')();
+var init = Init.New();
+
+init.queueJob('myTask', {
+  tasks: [task0, task1, task2]
+});
+
+init.abortJob('myTask');
+```

@@ -1,3 +1,7 @@
+'use strict';
+
+/*jshint -W058 */
+
 var assert = require('assert');
 
 var events = require('events');
@@ -7,7 +11,9 @@ util.inherits(Job, events.EventEmitter);
 function Job(opts) {
   events.EventEmitter.call(this, opts);
 
+  // this is just used to keep track if there are pending jobs
   this.tasks  = [];
+
   this.queue  = null;
   this.stdout = null;
   this.stderr = null;
@@ -38,6 +44,7 @@ function createJob(init, name) {
   job.stderr = stderr;
 
   queue.emitter.on('exit', function () {
+    // emit an event when there are no jobs on the queue
     job.tasks.shift();
     if (job.tasks.length === 0) job.emit('empty');
   });
@@ -60,13 +67,14 @@ Init.prototype.queueJob = function (name, body) {
 
   var types = this.$.types;
   var job   = this.jobs[name] || createJob(this, name);
-  var body  = types.job.marshal(body);
+
+  body = types.job.marshal(body);
 
   if (!job.queue.running) throw new Error('Job Aborted');
 
   body.tasks.forEach(function (task) {
-    job.queue.queue(task);
-    job.tasks.push(task);
+    job.queue.queue(task); // enque task for running
+    job.tasks.push(task);  // keep track of how many jobs we have
   });
 
   this.jobs[name] = job;
