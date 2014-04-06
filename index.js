@@ -1,9 +1,13 @@
 var assert = require('assert');
 
-var solidify = require('lib-stream-solidify');
-var liquify  = require('lib-stream-liquify');
+var events = require('events');
+var util   = require('util');
 
-function Job() {
+util.inherits(Job, events.EventEmitter);
+function Job(opts) {
+  events.EventEmitter.call(this, opts);
+
+  this.tasks  = [];
   this.queue  = null;
   this.stdout = null;
   this.stderr = null;
@@ -33,6 +37,11 @@ function createJob(init, name) {
   job.stdout = stdout;
   job.stderr = stderr;
 
+  queue.emitter.on('exit', function () {
+    job.tasks.shift();
+    if (job.tasks.length === 0) job.emit('empty');
+  });
+
   return job;
 }
 
@@ -46,8 +55,8 @@ Init.prototype.clearJob = function (name) {
 };
 
 Init.prototype.queueJob = function (name, body) {
-  // assert(name, 'require name of job');
-  // assert(body, 'require body containing job description');
+  assert(name, 'Job Requires Name');
+  assert(body, 'Job Requires Description');
 
   var types = this.$.types;
   var job   = this.jobs[name] || createJob(this, name);
@@ -57,6 +66,7 @@ Init.prototype.queueJob = function (name, body) {
 
   body.tasks.forEach(function (task) {
     job.queue.queue(task);
+    job.tasks.push(task);
   });
 
   this.jobs[name] = job;
