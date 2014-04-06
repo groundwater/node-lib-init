@@ -18,7 +18,7 @@ module.exports = {
 
   // queue a new job
   // or add tasks to an existing job
-  queueJob: {
+  queueTasks: {
     method: 'POST',
     route: '/job/:name'
   },

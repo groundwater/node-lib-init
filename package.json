@@ -18,8 +18,13 @@
   },
   "dependencies": {
     "lib-http-rpc": "^0.0.1",
-    "lib-job-queue": "0.0.5",
-    "minimist": "0.0.8"
+    "lib-job-queue": "^0.1.2",
+    "minimist": "0.0.8",
+    "lib-stream-solidify": "0.0.1",
+    "lib-stream-liquify": "0.0.1",
+    "lib-stream-future": "0.0.3",
+    "lib-proto-job": "0.0.0",
+    "lib-stream-series": "0.0.2"
   },
   "directories": {
     "test": "test"
