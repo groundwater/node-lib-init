@@ -15,7 +15,8 @@
     "tap": "^0.4.8",
     "lib-cmdparse": "^0.1.0",
     "lib-stream-solidify": "0.0.1",
-    "lib-stream-liquify": "0.0.1"
+    "lib-stream-liquify": "0.0.1",
+    "jshint": "^2.5.0"
   },
   "dependencies": {
     "lib-job-queue": "^0.1.3",
