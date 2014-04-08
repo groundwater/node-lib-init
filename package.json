@@ -6,9 +6,6 @@
   "scripts": {
     "test": "jshint index.js && tap test"
   },
-  "bin": {
-    "initctl": "initctl.js"
-  },
   "author": "Jacob Groundwater <groundwater@gmail.com>",
   "license": "MIT",
   "devDependencies": {
@@ -19,8 +16,8 @@
     "jshint": "^2.5.0"
   },
   "dependencies": {
-    "lib-job-queue": "^0.1.3",
-    "lib-proto-job": "0.0.0",
+    "lib-job-queue": "^0.2.0",
+    "lib-proto-job": "^0.1.0",
     "lib-stream-series": "^0.1.0"
   },
   "directories": {
