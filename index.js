@@ -19,6 +19,14 @@ function Job(opts) {
   this.stderr = null;
 }
 
+Job.prototype.status = function () {
+  return {
+    running: this.queue.running,
+    pending: this.queue.pending,
+    results: this.queue.results,
+  };
+};
+
 function Init() {
   this.jobs = {};
 }
@@ -143,7 +151,8 @@ function defaults() {
   Initializer
 
 */
-
 module.exports = function INIT(deps) {
   return inject(deps || defaults());
 };
+module.exports.defaults = defaults;
+module.exports.Job = Job;

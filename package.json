@@ -13,7 +13,8 @@
     "lib-cmdparse": "^0.1.0",
     "lib-stream-solidify": "0.0.1",
     "lib-stream-liquify": "0.0.1",
-    "jshint": "^2.5.0"
+    "jshint": "^2.5.0",
+    "nodemock": "^0.3.3"
   },
   "dependencies": {
     "lib-job-queue": "^0.2.0",
