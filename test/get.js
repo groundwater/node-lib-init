@@ -3,6 +3,7 @@ var test = require('tap').test;
 var solidify = require('lib-stream-solidify');
 var liquify  = require('lib-stream-liquify');
 var Series   = require('lib-stream-series');
+var check    = require('lib-checked-domain')();
 
 var Init = require('../index.js')()
 
@@ -34,7 +35,7 @@ test("get a job requires valid name", function (t) {
 
   t.throws(function (){
     var job = init.get();
-  }, new Error('Job Must Have Name'))
+  }, check.Error('BadRequest', 'Job Must Have Name'))
   t.end()
 });
 

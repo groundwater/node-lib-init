@@ -7,6 +7,8 @@ var assert = require('assert');
 var events = require('events');
 var util   = require('util');
 
+var check  = require('lib-checked-domain')();
+
 util.inherits(Job, events.EventEmitter);
 function Job(opts) {
   events.EventEmitter.call(this, opts);
@@ -36,7 +38,7 @@ Init.prototype.list = function () {
 };
 
 Init.prototype.get = function (name) {
-  if (!name) throw new Error('Job Must Have Name');
+  if (!name) throw check.Error('BadRequest', 'Job Must Have Name');
 
   return this.jobs[name];
 };
@@ -44,8 +46,8 @@ Init.prototype.get = function (name) {
 Init.prototype.clear = function (name) {
   var job = this.jobs[name];
 
-  if (!job)              throw new Error('Job Not Found');
-  if (job.queue.running) throw new Error('Cannot Clear a Running Job');
+  if (!job)              throw check.Error('NotFound', 'Job Not Found');
+  if (job.queue.running) throw check.Error('Forbidden', 'Cannot Clear a Running Job');
 
   delete this.jobs[name];
 };
@@ -59,7 +61,7 @@ Init.prototype.queue = function (name, body) {
 
   body = types.job.marshal(body);
 
-  if (!job.queue.running) throw new Error('Job Aborted');
+  if (!job.queue.running) throw check.Error('Forbidden', 'Job Aborted');
 
   body.tasks.forEach(function (task) {
     job.queue.queue(task); // enque task for running

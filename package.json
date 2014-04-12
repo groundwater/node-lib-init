@@ -20,7 +20,8 @@
     "lib-job-queue": "^0.2.0",
     "lib-proto-job": "^0.1.0",
     "lib-stream-series": "^0.1.0",
-    "lib-api-init": "0.0.0"
+    "lib-api-init": "0.0.0",
+    "lib-checked-domain": "0.0.0"
   },
   "directories": {
     "test": "test"
