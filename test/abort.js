@@ -1,29 +1,26 @@
-var test = require('tap').test;
-
-var solidify = require('lib-stream-solidify');
-var liquify  = require('lib-stream-liquify');
-var Series   = require('lib-stream-series');
-
+var test = require('tap').test
 var Init = require('../index.js')()
 
-test("one slow", function (t) {
-  var init = Init.New();
+test('abort', function(t){
+  t.plan(1)
 
-  var job = init.queue('a', {
-    tasks: [
-      {exec: process.argv[0], args: ['-e', 'process.stdout.write("one");'], envs: process.env, cwd: process.cwd()},
-    ]
-  });
+  var init = Init.New()
+  var task = {
+    exec: process.argv[0],
+    args: ['-e', 'console.log("hi")'],
+    envs: process.env,
+    cwd : process.cwd()
+  }
 
-  init.abortJob('a');
+  init.queue('test', task)
+  .emitter
+  .on('task', function() { t.ok(false, 'initial task was aborted') })
 
-  t.throws(function () {
-    init.queue('a', {
-      tasks: [
-        {exec: process.argv[0], args: ['-e', 'process.stdout.write("one");'], envs: process.env, cwd: process.cwd()},
-      ]
-    });
-  }, new Error('Job Aborted'));
+  t.ok(true, 'immediately abort the first job')
+  init.abort('test')
 
-  t.end();
-});
+  init.queue('test', task)
+  .emitter
+  .on('task', function() { t.ok(true, 'second task should run')})
+
+})
